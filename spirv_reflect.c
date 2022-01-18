@@ -3297,6 +3297,12 @@ static SpvReflectResult ParsePushConstantBlocks(
       return result;
     }
 
+    // NP FIX: other uniform blocks use the variable name and not the type name
+    // but push constants were missing that, meaning the actual variable name
+    // was lost entirely, and then couldn't be used for reflection lookups
+    p_push_constant->name = p_node->name;
+    // END NP
+
     ++push_constant_index;
   }
 
